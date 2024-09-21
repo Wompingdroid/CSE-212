@@ -32,11 +32,11 @@ public static class Search {
     /// </summary>
     /// <param name="data">The array of numbers</param>
     /// <param name="target">The number we're looking for</param>
-    private static int SearchSorted1(int[] data, int target) {
+    private static int SearchSorted1(int[] data, int target) { // two possible variables here
         var count = 0;
         foreach (var item in data) {
             count += 1;
-            if (item == target)
+            if (item == target)   //looks like it has two variables but is a vary linear equation O(n)
                 return count; // Found it
         }
 
@@ -61,5 +61,7 @@ public static class Search {
             return 1 + SearchSorted2(data, target, middle + 1, end);
         // Search in the lower half before index middle
         return 1 + SearchSorted2(data, target, start, middle - 1);
+
+        // looks logarithmic O(log2 n)
     }
 }

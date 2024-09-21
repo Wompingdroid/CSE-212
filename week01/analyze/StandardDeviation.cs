@@ -12,7 +12,7 @@ public static class StandardDeviation {
         Console.WriteLine(StandardDeviation3(numbers)); // Should be 147.322 
     }
 
-    private static double StandardDeviation1(int[] numbers) {
+    private static double StandardDeviation1(int[] numbers) { // variable n is numbers
         var total = 0.0;
         var count = 0;
         foreach (var number in numbers) {
@@ -27,16 +27,16 @@ public static class StandardDeviation {
         }
 
         var variance = sumSquaredDifferences / count;
-        return Math.Sqrt(variance);
+        return Math.Sqrt(variance); // seems to be a linear equation, O(n)
     }
 
-    private static double StandardDeviation2(int[] numbers) {
+    private static double StandardDeviation2(int[] numbers) {// n is numbers
         var sumSquaredDifferences = 0.0;
         var countNumbers = 0;
         foreach (var number in numbers) {
             var total = 0;
             var count = 0;
-            foreach (var value in numbers) {
+            foreach (var value in numbers) { // loop inside loop dependent on n, O(n^2)
                 total += value;
                 count += 1;
             }
@@ -59,6 +59,6 @@ public static class StandardDeviation {
         }
 
         var variance = sumSquaredDifferences / count;
-        return Math.Sqrt(variance);
+        return Math.Sqrt(variance); //looks linear but also more efficient. O(n)
     }
 }

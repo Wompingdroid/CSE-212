@@ -13,7 +13,18 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        //I will solve this by making a loop that will depend on the length, 
+        //then in that loop add the variable number to a sum and use Add() to put this number into the list ill return 
+
+        double multiple = 0;
+        var solution = new double[length];
+        
+        for(int i = 0; i < length; i++){
+            multiple += number;
+            solution[i] = multiple;
+        }
+
+        return solution; // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +40,20 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+
+        //we are given an array and a number, ha have to take that number and shift the array that amount
+        // I will make a temporary value storing variable and use the removeAt() to store then remove that int
+        // I will then Add that stored value to the end of the list
+        // I will use a loop that takes the difference from Length of the list and the amount wanted shifted and just "shift" it to the left the right amount of times needed
+        int tempVar; 
+        int shiftLeftAmount = data.Count - amount;
+            //loop it
+        for(int i = 0; i < shiftLeftAmount; i++){
+            tempVar =data[0];
+            data.RemoveAt(0);
+            data.Add(tempVar);
+        }
+
     }
 }
