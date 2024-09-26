@@ -20,5 +20,6 @@
         }
 
         return stack.Count == 0;
+        // hypothesis- finds where there are open to closed parenthesis and return false if there is one missing.
     }
 }

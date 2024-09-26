@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using System.Security.AccessControl;
+
+/// <summary>
 /// Maintain a Customer Service Queue.  Allows new customers to be 
 /// added and allows customers to be serviced.
 /// </summary>
@@ -11,24 +13,71 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: The correct que size of 10 is made when invalid que is detected
+        // Expected Result: when setting the Que size to be a negative number of 0, it defaults to 10
         Console.WriteLine("Test 1");
-
-        // Defect(s) Found: 
+        var service = new CustomerService(0);
+        Console.WriteLine($"Expecting 10: {service}");
+        // Defect(s) Found: none
+        
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario:  can add and serve customer
+        // Expected Result: able to add a customer to a queue and then take them off it
         Console.WriteLine("Test 2");
 
-        // Defect(s) Found: 
+        service = new CustomerService(3);
+        service.AddNewCustomer();
+        service.ServeCustomer();
+
+        // Defect(s) Found: had to add value to variable before getting rid of it in ServeCustomer
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: serve customers in the right order
+        // Expected Result: to serve the customers by the order of who came first
+        Console.WriteLine("Test 3");
+
+        service = new CustomerService(4);
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        Console.WriteLine($"Before serving customers: {service}");
+        service.ServeCustomer();
+        service.ServeCustomer();
+        Console.WriteLine($"After serving customers: {service}");
+
+        // Defect(s) Found: none
+
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: try to serve no customer
+        // Expected Result: display error
+        Console.WriteLine("Test 4");
+        service = new CustomerService(4);
+        service.ServeCustomer();
+
+        // Defect(s) Found: needed to add
+
+        Console.WriteLine("=================");
+
+        // Test 5
+        // Scenario: too many customers?
+        // Expected Result: error message on the fifth added
+        Console.WriteLine("Test 5");
+        service = new CustomerService(4);
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        Console.WriteLine($"Service Queue: {service}");
+        // Defect(s) Found: need to enforce going one over the limit in the max (changed > to >=)
+
+        Console.WriteLine("=================");
     }
 
     private readonly List<Customer> _queue = new();
@@ -67,7 +116,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +137,16 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if (_queue.Count <= 0)
+        {
+            Console.WriteLine("No Customers in the queue");
+        }
+        else{
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+        
+            Console.WriteLine(customer);
+        }
     }
 
     /// <summary>
