@@ -5,7 +5,7 @@
     /// <summary>
     /// Add a new value to the queue with an associated priority.  The
     /// node is always added to the back of the queue regardless of 
-    /// the priority.
+    /// the priority. 
     /// </summary>
     /// <param name="value">The value</param>
     /// <param name="priority">The priority</param>
