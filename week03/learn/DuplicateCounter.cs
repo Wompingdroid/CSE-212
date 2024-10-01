@@ -24,7 +24,17 @@
 
     private static int CountDuplicates(int[] data)
     {
-        // Add code here.
-        return 0;
+        var duplicates = 0;
+        int[] set = new int[100];
+        for (int i = 0; i <= data.Length; i++){
+            var value = data[i];
+            if(value == set[value])
+            {
+                duplicates += 1;
+            }
+            set[value] = value;
+
+        }
+        return duplicates;
     }
 }
