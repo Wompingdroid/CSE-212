@@ -1,4 +1,6 @@
+using System.Runtime.ConstrainedExecution;
 using System.Text.Json;
+using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Extensions;
 
 public static class SetsAndMaps
 {
@@ -21,7 +23,18 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
+        
+        foreach (string word in words){
+            string[] Pairs;
+            char[] charArray = word.ToCharArray();
+            Array.Reverse(charArray);
+            string reversedString = new string(charArray);
+            if (words.Contains(reversedString)){
+                var finalString = $"{word} & {reversedString}";
+                //Pairs.Add(finalString);
+                // Ill come back to this if I have a problem with the other 4
+            }
+        }
         return [];
     }
 
@@ -42,7 +55,8 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
+            
+            degrees.Add(fields[3],int.Parse(fields[4]));
         }
 
         return degrees;
