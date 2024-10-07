@@ -56,7 +56,13 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             
-            degrees.Add(fields[3],int.Parse(fields[4]));
+            
+            if (degrees.ContainsKey(fields[3])){
+                degrees[fields[3]] += 1;
+            }
+            else{
+                degrees.Add(fields[3],1);
+            }
         }
 
         return degrees;
