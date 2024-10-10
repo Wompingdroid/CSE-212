@@ -24,18 +24,30 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         
-        foreach (string word in words){
-            string[] Pairs;
-            char[] charArray = word.ToCharArray();
-            Array.Reverse(charArray);
-            string reversedString = new string(charArray);
-            if (words.Contains(reversedString)){
-                var finalString = $"{word} & {reversedString}";
-                //Pairs.Add(finalString);
-                // Ill come back to this if I have a problem with the other 4
-            }
+        var result = new List<string>();
+    var wordSet = new HashSet<string>();
+
+    foreach (var word in words)
+    {
+        // Skip words with repeated letters
+        if (word[0] == word[1])
+            continue;
+
+        // Make reversed word
+        string reversed = new string(new[] { word[1], word[0] });
+
+        // Check if the reversed word exists in the set
+        if (wordSet.Contains(reversed))
+        {
+            result.Add($"{word} & {reversed}");
         }
-        return [];
+
+        // Add the current word to the set
+        wordSet.Add(word);
+    }
+
+    return result.ToArray();
+
     }
 
     /// <summary>
@@ -96,7 +108,7 @@ public static class SetsAndMaps
         if (cleanWord1.Length != cleanWord2.Length)
             return false;
 
-        // Count the occurrences of each character in word1
+        // Count each character in word1
     foreach (char letter in cleanWord1)
     {
         if (letterCount.ContainsKey(letter))
@@ -105,7 +117,7 @@ public static class SetsAndMaps
             letterCount[letter] = 1;
     }
 
-    // Subtract the occurrences of each character in word2
+    // Subtract letters of each character in word2
     foreach (char letter in cleanWord2)
     {
         if (!letterCount.ContainsKey(letter))
