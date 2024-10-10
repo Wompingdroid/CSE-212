@@ -86,8 +86,38 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        var letterCount = new Dictionary<char, int>();
+
+        // Convert to lowercase and remove spaces
+        string cleanWord1 = word1.ToLower().Replace(" ", "");
+        string cleanWord2 = word2.ToLower().Replace(" ", "");
+
+        // Check if the lengths are different
+        if (cleanWord1.Length != cleanWord2.Length)
+            return false;
+
+        // Count the occurrences of each character in word1
+    foreach (char letter in cleanWord1)
+    {
+        if (letterCount.ContainsKey(letter))
+            letterCount[letter]++;
+        else
+            letterCount[letter] = 1;
+    }
+
+    // Subtract the occurrences of each character in word2
+    foreach (char letter in cleanWord2)
+    {
+        if (!letterCount.ContainsKey(letter))
+            return false;
+        
+        letterCount[letter]--;
+        if (letterCount[letter] == 0)
+            letterCount.Remove(letter);
+    }
+
+    // If the dictionary is empty, all characters matched
+        return letterCount.Count == 0;
     }
 
     /// <summary>
